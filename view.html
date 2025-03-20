@@ -1,0 +1,38 @@
+{% extends "layouts/layout.html" %}
+
+<title>Sonne WebGlobalPage</title>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    {% block content %}
+    <p>Enter your message in the field below:</p>
+    
+    <form action="/handle_data" method="POST">
+        <input type="text" name="message">
+        <input type="submit" value="Send">
+    </form>
+
+    <h1>Messages:</h1>
+    <div id="chat-container">
+        {% for message in messages %}
+            <div class="message">{{ message }}</div>
+        {% endfor %}
+    </div>
+
+    <script>
+        function refreshChat() {
+            fetch('/get_messages')
+            .then(response => response.json())
+            .then(data => {
+                let chatBox = document.getElementById('chat-container');
+                chatBox.innerHTML = data.map(msg => `<div class="message">${msg}</div>`).join('');
+            })
+            .catch(error => console.error('Errore:', error));
+        }
+
+        setInterval(refreshChat, 2000); // Aggiorna ogni 5 secondi
+        refreshChat(); // Carica subito i messaggi al caricamento della pagina
+    </script>
+
+    {% endblock %}
+</head>
