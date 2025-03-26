@@ -1,8 +1,23 @@
-{% extends "layouts/layout.html" %}
-
+<!DOCTYPE HTML>
 <title>Sonne WebGlobalPage</title>
+<html>
 <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!DOCTYPE HTML>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+	<meta char="UTF-8">
+	<link rel="stylesheet" type="text/css" href="/static/styles.css">
+	<link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
+	<h1>Sonne WebGlobalPage</h1>
+	<nav>
+		<ul class="navbar1">
+		  <li class="navbar2"><a class="active navbar3" href="/">Home</a></li>
+		  <li class="navbar2"><a class="navbar3" href="about" >About</a></li>
+		</ul>
+	</nav>
+
+
+    
 
     {% block content %}
     <p>Enter your message in the field below:</p>
