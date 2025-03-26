@@ -43,6 +43,7 @@ def about():
 # API per aggiornamento AJAX
 @app.route('/get_messages')
 def get_messages():
+    global messages
     return jsonify(messages[::-1])  # Messaggi in ordine inverso (più recente in alto)
 
 
@@ -74,18 +75,20 @@ def login_page():
 
 @app.route('/admin', methods=['GET', 'POST'])
 def admin_page():
-    global loggedIn
+    global loggedIn, messages
     if loggedIn == True:        
-        loggedIn = False
+        
         if request.method == 'POST':
             if request.form.get('clear') == 'clear':
-                messages.clear()
+                print("clear pressed")
+                messages = []
                 loggedIn = True
             elif  request.form.get('action2') == 'VALUE2':
                 print("AZIONE 2")
                 loggedIn = True
             else:
                 pass
+            return render_template('admin.html')
         elif request.method == 'GET':
             return render_template('admin.html')
             
@@ -94,10 +97,7 @@ def admin_page():
     else:
         return redirect(url_for('login'))
 
-@app.route('/clear_messages')
-def clear_messages():
-    
-    return redirect(url_for('view_messages'))
+
 
 
 #admin heandler
